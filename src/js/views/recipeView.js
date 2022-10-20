@@ -17,7 +17,6 @@ class RecipeView {
   }
 
   //! Loading spinner function
-
   loadingSpinner() {
     const markup = `
           <div class="spinner">
