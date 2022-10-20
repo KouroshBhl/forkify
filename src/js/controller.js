@@ -3,8 +3,6 @@ import recipeView from './views/recipeView.js';
 import 'regenerator-runtime/runtime';
 import 'core-js/stable';
 
-const recipeContainer = document.querySelector('.recipe');
-
 const timeout = function (s) {
   return new Promise(function (_, reject) {
     setTimeout(function () {
@@ -18,26 +16,25 @@ const timeout = function (s) {
 ///////////////////////////////////////
 
 //! Get recipe data from API
-const getRecipe = async function () {
+const controlRecipes = async function () {
   try {
     const hashId = window.location.hash.slice(1);
 
     if (!hashId) return;
+
+    //? Load spinner before recipe load
     recipeView.loadingSpinner();
 
+    //? Load recipe
     await model.loadRecipe(hashId);
 
-    //! Render recipe and make markup html
+    //? Render recipe and make markup html
     recipeView.render(model.state.recipe);
 
-    //! Handle errors
+    //? Handle errors
   } catch (error) {
     console.error(`Something went wrong! ${error} 😒`);
   }
 };
-// getRecipe();
 
-// window.addEventListener('hashchange', getRecipe);
-// window.addEventListener('load', getRecipe);
-
-['hashchange', 'load'].map(ev => window.addEventListener(ev, getRecipe));
+['hashchange', 'load'].map(ev => window.addEventListener(ev, controlRecipes));
