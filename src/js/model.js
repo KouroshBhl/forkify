@@ -8,11 +8,6 @@ export const state = {
 
 export const loadRecipe = async function (hashId) {
   try {
-    // const response = await fetch(`${API_URL}/${hashId}`);
-    // const data = await response.json();
-
-    // if (!response.ok) throw new Error(`${data.status} (${response.status})`);
-
     const data = await getJSON(`${API_URL}/${hashId}`);
 
     let { recipe } = data.data;
