@@ -12,7 +12,7 @@ export const state = {
 
 export const loadRecipe = async function (hashId) {
   try {
-    const data = await getJSON(`${API_URL}v2/recipes/${hashId}`);
+    const data = await getJSON(`${API_URL}/${hashId}`);
 
     let { recipe } = data.data;
     state.recipe = {
@@ -33,17 +33,13 @@ export const loadRecipe = async function (hashId) {
 
 export const searchQuery = async function (query) {
   try {
-    const data = await getJSON(`${API_URL}search?q=${query}`);
-
-    state.search.results = data.recipes.map(recipes => {
+    const data = await getJSON(`${API_URL}?search=${query}`);
+    state.search.results = data.data.recipes.map(recipes => {
       return {
-        RecipeID: recipes.recipe_id,
+        id: recipes.id,
         image: recipes.image_url,
         publisher: recipes.publisher,
-        sourceUrl: recipes.source_url,
         title: recipes.title,
-        socialRank: recipes.social_rank,
-        publisherUrl: recipes.publisher_url,
       };
     });
   } catch (error) {
