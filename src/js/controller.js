@@ -44,7 +44,7 @@ const searchRecipe = async function () {
     await model.searchQuery(query);
 
     //? 3) Render query
-    resultView.render(model.state.search.results);
+    resultView.render(model.getSearchResultsPage(2));
   } catch (error) {
     console.log(error);
   }
