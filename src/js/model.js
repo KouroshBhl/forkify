@@ -25,5 +25,6 @@ export const loadRecipe = async function (hashId) {
     console.log(state.recipe);
   } catch (error) {
     console.error(`Something went wrong! ${error} 😒`);
+    throw error;
   }
 };
