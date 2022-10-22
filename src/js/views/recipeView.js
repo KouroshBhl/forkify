@@ -7,6 +7,10 @@ class RecipeView extends View {
   _errorText = 'No recipes found for your query. Please try again!';
   _successText = '';
 
+  addHandlerRender(handler) {
+    ['hashchange', 'load'].map(ev => window.addEventListener(ev, handler));
+  }
+
   addHandlerUpdateServings(handler) {
     this._parentElement.addEventListener('click', function (e) {
       const updateBtn = e.target.closest('.btn--update-servings');

@@ -18,6 +18,7 @@ const controlRecipes = async function () {
   try {
     const hashId = window.location.hash.slice(1);
     if (!hashId) return;
+
     //? Load spinner before recipe load
     recipeView.loadingSpinner();
 
@@ -27,8 +28,6 @@ const controlRecipes = async function () {
     //? Render recipe and make markup html
     recipeView.render(model.state.recipe);
     controlUpdateServings();
-
-    //? Handle errors
   } catch (error) {
     recipeView.errorMessage();
   }
@@ -61,9 +60,10 @@ const controlPagination = function (goToPage) {
 
 const controlUpdateServings = function (newServing) {
   model.updateServing(newServing);
-  recipeView.render(model.state.recipe);
+  recipeView.update(model.state.recipe);
 };
 
+//? Add Handlers
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerUpdateServings(controlUpdateServings);

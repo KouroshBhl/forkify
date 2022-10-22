@@ -1,16 +1,48 @@
 import icons from 'url:../../img/icons.svg';
 export default class View {
   _data;
-  addHandlerRender(handler) {
-    ['hashchange', 'load'].map(ev => window.addEventListener(ev, handler));
-  }
 
   render(data) {
+    if (!data || (Array.isArray(data) && data.length === 0))
+      return this.errorMessage();
+
     this._data = data;
-    // this.loadingSpinner();
-    this._clear();
     const markup = this._generateMarkup();
+
+    this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+
+  update(data) {
+    if (!data || (Array.isArray(data) && data.length === 0))
+      return this.errorMessage();
+
+    this._data = data;
+    const markup = this._generateMarkup();
+
+    const newDOM = document.createRange().createContextualFragment(markup);
+    const newElements = Array.from(newDOM.querySelectorAll('*'));
+    const currElements = Array.from(this._parentElement.querySelectorAll('*'));
+
+    newElements.forEach((newEl, i) => {
+      const currEl = currElements[i];
+
+      //? Updates change TEXT
+      if (
+        !newEl.isEqualNode(currEl) &&
+        newEl.firstChild?.nodeValue.trim() !== ''
+      ) {
+        currEl.textContent = newEl.textContent;
+      }
+
+      //? Updates change Attribute
+      if (!newEl.isEqualNode(currEl)) {
+        console.log(newEl.attributes);
+        Array.from(newEl.attributes).forEach(attr =>
+          currEl.setAttribute(attr.name, attr.value)
+        );
+      }
+    });
   }
 
   _clear() {
