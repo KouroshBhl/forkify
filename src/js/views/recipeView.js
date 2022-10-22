@@ -7,6 +7,15 @@ class RecipeView extends View {
   _errorText = 'No recipes found for your query. Please try again!';
   _successText = '';
 
+  addHandlerUpdateServings(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const updateBtn = e.target.closest('.btn--update-servings');
+      if (!updateBtn) return;
+      const numberOfServings = updateBtn.dataset.update;
+      if (+numberOfServings > 0) handler(+numberOfServings);
+    });
+  }
+
   _generateMarkup() {
     return `
         <figure class="recipe__fig">
@@ -36,12 +45,16 @@ class RecipeView extends View {
             <span class="recipe__info-text">servings</span>
 
             <div class="recipe__info-buttons">
-              <button class="btn--tiny btn--increase-servings">
+              <button class="btn--tiny btn--update-servings" data-update="${
+                this._data.servings - 1
+              }">
                 <svg>
                   <use href="${icons}#icon-minus-circle"></use>
                 </svg>
               </button>
-              <button class="btn--tiny btn--increase-servings">
+              <button class="btn--tiny btn--update-servings" data-update="${
+                this._data.servings + 1
+              }">
                 <svg>
                   <use href="${icons}#icon-plus-circle"></use>
                 </svg>
@@ -66,7 +79,7 @@ class RecipeView extends View {
           <ul class="recipe__ingredient-list">
 
          
-         ${this._ingredientRender()}
+         ${this.ingredientRender()}
 
         </ul>
         </div>
@@ -94,7 +107,7 @@ class RecipeView extends View {
   `;
   }
 
-  _ingredientRender() {
+  ingredientRender() {
     return ` ${this._data.ingredients
       .map(ing => {
         return ` 
