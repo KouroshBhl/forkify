@@ -8,6 +8,7 @@ export const state = {
     query: '',
     results: [],
     pageDefult: RES_PER_PAGE,
+    page: 1,
   },
 };
 
@@ -34,6 +35,7 @@ export const loadRecipe = async function (hashId) {
 
 export const searchQuery = async function (query) {
   try {
+    state.search.query = query;
     const data = await getJSON(`${API_URL}?search=${query}`);
     state.search.results = data.data.recipes.map(recipes => {
       return {
@@ -49,7 +51,9 @@ export const searchQuery = async function (query) {
   }
 };
 
-export const getSearchResultsPage = function (page = state.search.pageDefult) {
+export const getSearchResultsPage = function (page = state.search.page) {
+  state.search.page = page;
+
   const start = (page - 1) * state.search.pageDefult;
   const end = page * state.search.pageDefult;
   return state.search.results.slice(start, end);
