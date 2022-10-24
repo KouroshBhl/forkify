@@ -19,6 +19,8 @@ const controlRecipes = async function () {
     const hashId = window.location.hash.slice(1);
     if (!hashId) return;
 
+    resultView.update(model.getSearchResultsPage());
+
     //? Load spinner before recipe load
     recipeView.loadingSpinner();
 
