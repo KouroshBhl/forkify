@@ -45,6 +45,9 @@ export const searchQuery = async function (query) {
         title: recipes.title,
       };
     });
+
+    //? Reset page view
+    state.search.page = 1;
   } catch (error) {
     console.error(`Something went wrong! ${error} 😒`);
     throw error;

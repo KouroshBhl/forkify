@@ -49,6 +49,7 @@ const searchRecipe = async function () {
 
     //? 3) Render query
     resultView.render(model.getSearchResultsPage());
+
     paginationView.render(model.state.search);
   } catch (error) {
     console.log(error);
