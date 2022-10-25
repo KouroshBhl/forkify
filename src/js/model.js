@@ -28,6 +28,10 @@ export const loadRecipe = async function (hashId) {
       sourceUrl: recipe.source_url,
       title: recipe.title,
     };
+
+    if (state.bookmarks.some(bookmark => bookmark.id === hashId))
+      state.recipe.isBookmarked = true;
+    else state.recipe.isBookmarked = false;
   } catch (error) {
     console.error(`Something went wrong! ${error} 😒`);
     throw error;
@@ -78,6 +82,10 @@ export const addBookmark = function (recipe) {
   //? Add obj attribute set to true
   // if (recipe.id === state.recipe.id)
   state.recipe.isBookmarked = true;
+};
 
-  console.log(state);
+export const removeBookmark = function (id) {
+  const index = state.bookmarks.findIndex(el => el.id === id);
+  state.bookmarks.splice(index, 1);
+  state.recipe.isBookmarked = false;
 };
