@@ -7,7 +7,6 @@ class BookmarkView extends View {
   _errorText = 'Search for nice recipe for you and bookmark it =))';
 
   _generateMarkup() {
-    console.log(this._data);
     return this._data
       .map(bookmark => previewView.render(bookmark, false))
       .join('');

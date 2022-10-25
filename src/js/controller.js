@@ -21,7 +21,6 @@ const controlRecipes = async function () {
     if (!hashId) return;
 
     resultView.update(model.getSearchResultsPage());
-    bookmarkView.render(model.state.bookmarks);
 
     //? Load spinner before recipe load
     recipeView.loadingSpinner();
@@ -32,6 +31,8 @@ const controlRecipes = async function () {
     //? Render recipe and make markup html
     recipeView.render(model.state.recipe);
     controlUpdateServings();
+
+    bookmarkView.render(model.state.bookmarks);
   } catch (error) {
     recipeView.errorMessage();
   }
@@ -82,5 +83,6 @@ const init = function () {
   recipeView.addHandlerNewBookmark(controlAddBookmark);
   searchView.addHandlerRender(searchRecipe);
   paginationView.addHandlerRender(controlPagination);
+  model.init();
 };
 init();
