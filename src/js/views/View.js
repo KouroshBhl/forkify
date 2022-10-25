@@ -37,7 +37,6 @@ export default class View {
 
       //? Updates change Attribute
       if (!newEl.isEqualNode(currEl)) {
-        console.log(newEl.attributes);
         Array.from(newEl.attributes).forEach(attr =>
           currEl.setAttribute(attr.name, attr.value)
         );

@@ -10,6 +10,7 @@ export const state = {
     pageDefult: RES_PER_PAGE,
     page: 1,
   },
+  bookmarks: [],
 };
 
 export const loadRecipe = async function (hashId) {
@@ -65,4 +66,15 @@ export const updateServing = function (newServing = state.recipe.servings) {
   });
 
   state.recipe.servings = newServing;
+};
+
+export const addBookmark = function (recipe) {
+  //? Push bookmark for displaying in object!
+  state.bookmarks.push(recipe);
+
+  //? Add obj attribute set to true
+  // if (recipe.id === state.recipe.id)
+  state.recipe.isBookmarked = true;
+
+  console.log(state);
 };
