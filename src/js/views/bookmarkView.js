@@ -2,8 +2,10 @@ import View from './View.js';
 import previewView from './previewView.js';
 import icons from 'url:../../img/icons.svg';
 
-class ResultView extends View {
-  _parentElement = document.querySelector('.results');
+class BookmarkView extends View {
+  _parentElement = document.querySelector('.bookmarks__list');
+  _errorText = 'Search for nice recipe for you and bookmark it =))';
+
   _generateMarkup() {
     console.log(this._data);
     return this._data
@@ -12,4 +14,4 @@ class ResultView extends View {
   }
 }
 
-export default new ResultView();
+export default new BookmarkView();
